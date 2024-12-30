@@ -3,6 +3,8 @@ package main
 import (
 	"errors"
 	"fmt"
+
+	"./operations"
 )
 
 type Operation string
@@ -63,10 +65,10 @@ func getOperation() (Operation, error) {
 
 func calculate(a, b float64, operation Operation) (float64, error) {
 	operations := map[Operation]func(float64, float64) (float64, error){
-		Add:      add,
-		Subtract: subtract,
-		Multiply: multiply,
-		Divide:   divide,
+		Add:      operations.Add,
+		Subtract: operations.Subtract,
+		Multiply: operations.Multiply,
+		Divide:   operations.Divide,
 	}
 
 	opFn, exists := operations[operation]
@@ -76,23 +78,4 @@ func calculate(a, b float64, operation Operation) (float64, error) {
 	}
 
 	return 0, errors.New("unsupported operation")
-}
-
-func add(a, b float64) (float64, error) {
-	return a + b, nil
-}
-
-func subtract(a, b float64) (float64, error) {
-	return a - b, nil
-}
-
-func multiply(a, b float64) (float64, error) {
-	return a * b, nil
-}
-
-func divide(a, b float64) (float64, error) {
-	if b == 0 {
-		return 0, errors.New("division by zero is not allowed")
-	}
-	return a / b, nil
 }
