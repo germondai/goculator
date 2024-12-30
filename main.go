@@ -14,16 +14,16 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	num1, err := getInput("Enter the first number: ")
-	utils.HandleError(err)
+	utils.HandleErr(err)
 
 	op, err := getOperation()
-	utils.HandleError(err)
+	utils.HandleErr(err)
 
 	num2, err := getInput("Enter the second number: ")
-	utils.HandleError(err)
+	utils.HandleErr(err)
 
 	result, err := calculate(num1, num2, op)
-	utils.HandleError(err)
+	utils.HandleErr(err)
 
 	fmt.Printf("Result: %.2f\n", result)
 }
