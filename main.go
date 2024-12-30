@@ -7,15 +7,6 @@ import (
 	"./operations"
 )
 
-type Operation string
-
-const (
-	Add      Operation = "+"
-	Subtract Operation = "-"
-	Multiply Operation = "*"
-	Divide   Operation = "/"
-)
-
 func main() {
 	fmt.Println("Welcome to the Enhanced Go Calculator!")
 	fmt.Println("Supported operations: +, -, *, /")
@@ -53,22 +44,22 @@ func getInput(prompt string) (float64, error) {
 	return input, nil
 }
 
-func getOperation() (Operation, error) {
+func getOperation() (operations.Operation, error) {
 	var op string
 	fmt.Print("Enter an operator (+, -, *, /): ")
 	_, err := fmt.Scanln(&op)
 	if err != nil {
 		return "", errors.New("invalid input, please enter a valid operator")
 	}
-	return Operation(op), nil
+	return operations.Operation(op), nil
 }
 
-func calculate(a, b float64, operation Operation) (float64, error) {
-	operations := map[Operation]func(float64, float64) (float64, error){
-		Add:      operations.Add,
-		Subtract: operations.Subtract,
-		Multiply: operations.Multiply,
-		Divide:   operations.Divide,
+func calculate(a, b float64, operation operations.Operation) (float64, error) {
+	operations := map[operations.Operation]func(float64, float64) (float64, error){
+		operations.AddOp:      operations.Add,
+		operations.SubtractOp: operations.Subtract,
+		operations.MultiplyOp: operations.Multiply,
+		operations.DivideOp:   operations.Divide,
 	}
 
 	opFn, exists := operations[operation]
