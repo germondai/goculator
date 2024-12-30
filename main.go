@@ -62,30 +62,32 @@ func getOperation() (Operation, error) {
 }
 
 func calculate(a, b float64, operation Operation) (float64, error) {
-	switch operation {
-	case Add:
-		return add(a, b), nil
-	case Subtract:
-		return subtract(a, b), nil
-	case Multiply:
-		return multiply(a, b), nil
-	case Divide:
-		return divide(a, b)
-	default:
-		return 0, errors.New("unsupported operation")
+	operations := map[Operation]func(float64, float64) (float64, error){
+		Add:      add,
+		Subtract: subtract,
+		Multiply: multiply,
+		Divide:   divide,
 	}
+
+	opFn, exists := operations[operation]
+
+	if exists {
+		return opFn(a, b)
+	}
+
+	return 0, errors.New("unsupported operation")
 }
 
-func add(a, b float64) float64 {
-	return a + b
+func add(a, b float64) (float64, error) {
+	return a + b, nil
 }
 
-func subtract(a, b float64) float64 {
-	return a - b
+func subtract(a, b float64) (float64, error) {
+	return a - b, nil
 }
 
-func multiply(a, b float64) float64 {
-	return a * b
+func multiply(a, b float64) (float64, error) {
+	return a * b, nil
 }
 
 func divide(a, b float64) (float64, error) {
