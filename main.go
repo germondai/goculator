@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"./operations"
-	"./utils"
+	"goculator/operations"
+	"goculator/utils"
 )
 
 func main() {
