@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"./operations"
+	"./utils"
 )
 
 func main() {
@@ -13,25 +14,18 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	num1, err := getInput("Enter the first number: ")
-	handleError(err)
+	utils.HandleError(err)
 
 	op, err := getOperation()
-	handleError(err)
+	utils.HandleError(err)
 
 	num2, err := getInput("Enter the second number: ")
-	handleError(err)
+	utils.HandleError(err)
 
 	result, err := calculate(num1, num2, op)
-	handleError(err)
+	utils.HandleError(err)
 
 	fmt.Printf("Result: %.2f\n", result)
-}
-
-func handleError(err error) {
-	if err != nil {
-		fmt.Println("Error:", err)
-		panic(err)
-	}
 }
 
 func getInput(prompt string) (float64, error) {
